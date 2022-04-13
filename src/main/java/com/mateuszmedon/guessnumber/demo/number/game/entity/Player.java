@@ -7,15 +7,22 @@ import java.util.Objects;
 @Component
 public class Player {
 
-    String nick;
-    int gameNumber;
+    private String nick;
+    private String results;
+    private boolean win;
 
     public Player() {
     }
 
-    public Player(String nick) {
-        this.nick = nick;
+    public Player(String results, boolean win) {
+        this.results = results;
+        this.win = win;
+    }
 
+    public Player(String nick, String results, boolean win) {
+        this.nick = nick;
+        this.results = results;
+        this.win = win;
     }
 
     public String getNick() {
@@ -26,8 +33,20 @@ public class Player {
         this.nick = nick;
     }
 
-    public int getGameNumber() {
-        return gameNumber;
+    public String getResults() {
+        return results;
+    }
+
+    public void setResults(String results) {
+        this.results = results;
+    }
+
+    public boolean isWin() {
+        return win;
+    }
+
+    public void setWin(boolean win) {
+        this.win = win;
     }
 
     @Override
@@ -35,19 +54,20 @@ public class Player {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Player player = (Player) o;
-        return gameNumber == player.gameNumber && Objects.equals(nick, player.nick);
+        return win == player.win && Objects.equals(nick, player.nick) && Objects.equals(results, player.results);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nick, gameNumber);
+        return Objects.hash(nick, results, win);
     }
 
     @Override
     public String toString() {
         return "Player{" +
                 "nick='" + nick + '\'' +
-                ", gameNumber=" + gameNumber +
+                ", results='" + results + '\'' +
+                ", win=" + win +
                 '}';
     }
 }

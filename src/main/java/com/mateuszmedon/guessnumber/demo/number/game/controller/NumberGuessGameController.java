@@ -29,17 +29,16 @@ public class NumberGuessGameController {
         return gameService.getAllPlayers();
     }
 
-
     //GuessNumberGame/start
     @PostMapping("/start")
     public void addPlayer(@RequestBody Player player){
         gameService.addNewPlayer(player);
     }
 
-    @PostMapping("/guees")
-    public Guess guessTry(){
-        return null;
-    }
+//    @GetMapping("/guees")
+//    public Guess guessTry(@RequestParam Integer number, @RequestBody Player player){
+//        return null;
+//    }
 
 
 
