@@ -2,17 +2,21 @@ package com.mateuszmedon.guessnumber.demo.number.game.services;
 
 
 import com.mateuszmedon.guessnumber.demo.number.game.entity.Game;
+import com.mateuszmedon.guessnumber.demo.number.game.entity.PlayerTable;
 import com.mateuszmedon.guessnumber.demo.number.game.entity.Player;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class GameService {
 
+    PlayerTable playerTable = new PlayerTable();
+    List<Player> playerList = playerTable.getPlayerList();
+
     Game game = new Game();
-    List<Player> playerList = game.getPlayerList();
+    List<Game> gameList = new ArrayList<>();
 
 
     public Player addNewPlayer(Player player){
@@ -32,7 +36,7 @@ public class GameService {
 
 
     public Player getPlayer(String nick) {
-        return Optional.of(game.getPlayerList()
+        return Optional.of(playerTable.getPlayerList()
                 .stream()
                 .filter(player -> player.getNick().equals(nick))
                 .findFirst()
@@ -42,5 +46,52 @@ public class GameService {
 
     public List<Player> getAllPlayers() {
         return playerList;
+    }
+
+    public String guessTry(String nick, Integer number) {
+
+
+        Player player = getPlayer(nick);
+        player.setMessage("playing");
+        Random random = new Random();
+
+        if(player.getGameNumber() == -1){
+            int newNumber = random.nextInt(100-1)+1;
+            player.setGameNumber(newNumber);
+            player.setAttempt(0);
+            System.out.println("game number: " + player.getGameNumber());
+
+            game = new Game();
+        }
+
+            if(player.getGameNumber() > number){
+                player.setMessage("Your number is to small");
+                player.incrementAttempt();
+            }
+
+            if(player.getGameNumber() < number){
+                player.setMessage("Your number is to big");
+                player.incrementAttempt();
+            }
+
+            if(player.getGameNumber() == number) {
+                player.setMessage("You win");
+
+                game.setResultOfTheGame(player.getAttempt());
+                game.setNick(player.getNick());
+                player.setGameNumber(-1);
+
+                gameList.add(game);
+            }
+
+        return player.getMessage();
+    }
+
+    public List<Game> returnHighScores() {
+
+        return gameList.stream()
+                .sorted(Comparator.comparingInt(Game::getResultOfTheGame))
+                .limit(10)
+                .collect(Collectors.toList());
     }
 }

@@ -1,7 +1,6 @@
 package com.mateuszmedon.guessnumber.demo.number.game.controller;
 
 import com.mateuszmedon.guessnumber.demo.number.game.entity.Game;
-import com.mateuszmedon.guessnumber.demo.number.game.entity.Guess;
 import com.mateuszmedon.guessnumber.demo.number.game.entity.Player;
 import com.mateuszmedon.guessnumber.demo.number.game.services.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +12,6 @@ import java.util.List;
 @RequestMapping(path = "/GuessNumberGame")
 public class NumberGuessGameController {
 
-    @Autowired
-    Game game;
 
     @Autowired
     GameService gameService;
@@ -35,10 +32,16 @@ public class NumberGuessGameController {
         gameService.addNewPlayer(player);
     }
 
-//    @GetMapping("/guees")
-//    public Guess guessTry(@RequestParam Integer number, @RequestBody Player player){
-//        return null;
-//    }
+    @GetMapping("/guess/{nick}/{number}")
+    public String guessTry(@PathVariable String nick, @PathVariable Integer number){
+        return gameService.guessTry(nick, number);
+    }
+
+    @GetMapping("/hiscores")
+    public List<Game> get10HighScores(){
+
+        return gameService.returnHighScores();
+    }
 
 
 

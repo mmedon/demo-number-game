@@ -1,17 +1,30 @@
 package com.mateuszmedon.guessnumber.demo.number.game.entity;
 
-
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Component
 public class Game {
 
-    private static final List<Player> playerList = new ArrayList<>();
+    private String nick;
+    private int resultOfTheGame;
 
-    public List<Player> getPlayerList() {
-        return playerList;
+    public Game() {
+    }
+
+
+    public String getNick() {
+        return nick;
+    }
+
+    public void setNick(String nick) {
+        this.nick = nick;
+    }
+
+    public int getResultOfTheGame() {
+        return resultOfTheGame;
+    }
+
+    public void setResultOfTheGame(int resultOfTheGame) {
+        this.resultOfTheGame = resultOfTheGame;
     }
 }
