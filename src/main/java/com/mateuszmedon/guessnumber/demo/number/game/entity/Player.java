@@ -17,6 +17,19 @@ public class Player {
         gameNumber = -1;
     }
 
+    public Player(String nick) {
+        this.nick = nick;
+    }
+
+    public Player(String nick, String results, int gameNumber, String message, int attempt) {
+        this.nick = nick;
+        this.results = results;
+        this.gameNumber = gameNumber;
+        this.message = message;
+        this.attempt = attempt;
+    }
+
+
     public void incrementAttempt() {
         attempt++;
     }
