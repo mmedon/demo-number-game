@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Main class of the Game Service for keeping entire game logic
+ */
 @Service
 public class GameService {
 
@@ -19,6 +22,10 @@ public class GameService {
     List<Game> gameList = new ArrayList<>();
 
 
+    /**
+     * @param player taking player class for adding it in to the system
+     * @return new created player
+     */
     public Player addNewPlayer(Player player) {
 
         Player newPlayer = new Player();
@@ -34,7 +41,10 @@ public class GameService {
         return newPlayer;
     }
 
-
+    /**
+     * @param nick taking string value for the searching it in database
+     * @return if player is found return player
+     */
     public Player getPlayer(String nick) {
         return Optional.of(playerTable.getPlayerList()
                         .stream()
@@ -44,10 +54,20 @@ public class GameService {
                 .orElse(null);
     }
 
+    /**
+     * @return all created players
+     */
     public List<Player> getAllPlayers() {
         return playerList;
     }
 
+    /**
+     *
+     * Main game logig of the service
+     * @param nick string value of the player nick
+     * @param number taking user number
+     * @return message of the results
+     */
     public String guessTry(String nick, Integer number) {
 
 
@@ -87,11 +107,19 @@ public class GameService {
         return player.getMessage();
     }
 
+    /**
+     * @param list taking list and add it to the data
+     * @return
+     */
     public List<Game> addGames(List<Game> list) {
         gameList = list;
         return gameList;
     }
 
+    /**
+     * Method for the returning game results
+     * @return 10 highest score of the game
+     */
     public List<Game> returnHighScores() {
 
         return gameList.stream()

@@ -4,6 +4,13 @@ import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
+/**
+ * Game is the main entity we'll be using to create a game for the selected player
+ *
+ * Please see the {@link com.mateuszmedon.guessnumber.demo.number.game.entity.Player} class for true identity
+ * @author Mateusz Medon
+ *
+ **/
 @Component
 public class Player {
 

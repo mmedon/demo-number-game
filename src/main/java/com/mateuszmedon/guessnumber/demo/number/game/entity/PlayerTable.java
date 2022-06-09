@@ -6,6 +6,9 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Container for the data of the games
+ */
 @Component
 public class PlayerTable {
 
